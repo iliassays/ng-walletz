@@ -3,7 +3,7 @@
     using System.Threading.Tasks;
     using System.Web.Http;
 
-    [RoutePrefix("api/RefreshTokens")]
+    [Route("api/RefreshTokens")]
     public class RefreshTokensController : ApiController
     {
         private readonly AuthRepository authRepository = null;

@@ -118,5 +118,26 @@
                 .FindAll()
                 .ToList();
         }
+
+        public async Task<User> FindAsync(UserLoginInfo loginInfo)
+        {
+            User user = await userManager.FindAsync(loginInfo);
+
+            return user;
+        }
+
+        public async Task<IdentityResult> CreateAsync(User user)
+        {
+            var result = await userManager.CreateAsync(user);
+
+            return result;
+        }
+
+        public async Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login)
+        {
+            var result = await userManager.AddLoginAsync(userId, login);
+
+            return result;
+        }
     }
 }

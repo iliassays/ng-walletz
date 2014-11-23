@@ -4,7 +4,9 @@
     using Newtonsoft.Json.Serialization;
     using System.Linq;
     using System.Net.Http.Formatting;
+    using System.Runtime.Remoting.Contexts;
     using System.Web.Http;
+    using System.Web.Http.Cors;
 
     public static class WebApiConfig
     {

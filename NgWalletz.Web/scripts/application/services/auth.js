@@ -3,6 +3,12 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'authSettings'
 
     var serviceBase = authSettings.apiServiceBaseUri;
 
+    var externalAuthData = {
+        provider: "",
+        userName: "",
+        externalAccessToken: ""
+    };
+
     var authentication = {
         isAuth: false,
         userName: "",
@@ -20,7 +26,7 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'authSettings'
     };
 
     var login = function (loginData) {
-       
+
         var data = "grant_type=password&username=" + loginData.userName + "&password=" + loginData.password;
 
         if (loginData.useRefreshTokens) {
@@ -105,12 +111,61 @@ app.factory('authService', ['$http', '$q', 'localStorageService', 'authSettings'
         return deferred.promise;
     };
 
+    var obtainAccessToken = function (externalData) {
+
+        var deferred = $q.defer();
+
+        $http.get(serviceBase + 'api/user/ObtainLocalAccessToken', { params: { provider: externalData.provider, externalAccessToken: externalData.externalAccessToken } }).success(function (response) {
+
+            localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false });
+
+            authentication.isAuth = true;
+            authentication.userName = response.userName;
+            authentication.useRefreshTokens = false;
+
+            deferred.resolve(response);
+
+        }).error(function (err, status) {
+            logOut();
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+
+    };
+
+    var registerExternal = function (registerExternalData) {
+
+        var deferred = $q.defer();
+
+        $http.post(serviceBase + 'api/user/registerexternal', registerExternalData).success(function (response) {
+
+            localStorageService.set('authorizationData', { token: response.access_token, userName: response.userName, refreshToken: "", useRefreshTokens: false });
+
+            authentication.isAuth = true;
+            authentication.userName = response.userName;
+            authentication.useRefreshTokens = false;
+
+            deferred.resolve(response);
+
+        }).error(function (err, status) {
+            logOut();
+            deferred.reject(err);
+        });
+
+        return deferred.promise;
+
+    };
+
     return {
         saveRegistration: saveRegistration,
         login: login,
         logOut: logOut,
         fillAuthData: fillAuthData,
         authentication: authentication,
-        refreshToken: refreshToken
+        refreshToken: refreshToken,
+        obtainAccessToken: obtainAccessToken,
+        externalAuthData: externalAuthData,
+        registerExternal: registerExternal
     };
 }]);

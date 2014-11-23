@@ -14,7 +14,7 @@
     <RootNamespace>MyWalletz.Web</RootNamespace>
     <AssemblyName>MyWalletz.Web</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <UseIISExpress>false</UseIISExpress>
+    <UseIISExpress>true</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -57,6 +57,9 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="authComplete.html" />
+    <Content Include="scripts\application\controllers\associate.js" />
+    <Content Include="scripts\authComplete.js" />
     <Content Include="scripts\application\controllers\page.js" />
     <Content Include="scripts\application\controllers\index.js" />
     <Content Include="scripts\application\controllers\signin.js" />
@@ -69,6 +72,7 @@
     <Content Include="scripts\application\services\auth.js" />
     <Content Include="scripts\application\services\accounts.js" />
     <Content Include="scripts\application\services\tokensManager.js" />
+    <Content Include="views\associate.html" />
     <Content Include="views\not-found.html" />
     <Content Include="views\home.html" />
     <Content Include="views\session-create.html" />
@@ -119,7 +123,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>32176</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/ngwalletzweb</IISUrl>
+          <IISUrl>http://localhost:32176/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

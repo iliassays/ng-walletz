@@ -28,6 +28,11 @@
             templateUrl: "views/tokens.html",
             secure: true
         }).
+        when('/associate', {
+            controller: "Associate",
+            templateUrl: "views/associate.html",
+            secure: true
+        }).
         when('/404', {
             templateUrl: 'views/not-found.html',
             controller: 'Page'

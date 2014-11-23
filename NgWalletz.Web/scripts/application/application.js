@@ -7,12 +7,14 @@
     ]);
 
 app.constant('authSettings', {
-    apiServiceBaseUri: 'http://localhost/ngwalletzapi/',
+    apiServiceBaseUri: 'http://localhost:26265/',
     clientId: 'NgWalletz'
 });
 
 app.config(function ($httpProvider) {
     $httpProvider.interceptors.push('authInterceptorService');
+    //$httpProvider.defaults.useXDomain = true;
+    //delete $httpProvider.defaults.headers.common['X-Requested-With'];
 });
 
 app.run(['authService', function (authService) {

@@ -13,7 +13,7 @@ app.factory('tokensManagerService', ['$http', 'authSettings', function ($http, a
     };
 
     var deleteRefreshTokens = function (tokenid) {
-
+        delete $http.defaults.headers.common['X-Requested-With'];
         return $http.delete(serviceBase + 'api/refreshtokens/?tokenid=' + tokenid).then(function (results) {
             return results;
         });
